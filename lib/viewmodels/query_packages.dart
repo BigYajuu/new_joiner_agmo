@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:new_joiner/api/routers/top.dart';
 import 'package:new_joiner/models/pub_package_list.dart';
 
-class QueryPubPackages extends ChangeNotifier {
+class QueryPackages extends ChangeNotifier {
   // handling the query pub packages by keeping them updated
   int currPage = 1;
   String? nextUrl;
@@ -40,6 +40,7 @@ class QueryPubPackages extends ChangeNotifier {
     } else {
       PubPackageList pplWhole = PubPackageList.fromJson(data);
       pubPackagePool.addAll(pplWhole.packages);
+      print(pubPackagePool);
       nextUrl = pplWhole.next;
     }
     notifyListeners();

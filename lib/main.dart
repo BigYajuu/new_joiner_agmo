@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // All windows by tabs
   List<Widget> allWindows = [
-    const SearchContainer(),
+    const SearchTabProvider(),
   ];
 
   @override
