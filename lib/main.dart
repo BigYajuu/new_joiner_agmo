@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_joiner/view/widgets/custom_btm_nav.dart';
+import 'package:new_joiner/view/widgets/favourites_tab_content.dart';
 import 'package:new_joiner/view/widgets/search_tab_content.dart';
 
 void main() {
@@ -36,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // All windows by tabs
   List<Widget> allWindows = [
     const SearchTabProvider(),
+    const FavouritesTabProvider(),
   ];
 
   @override

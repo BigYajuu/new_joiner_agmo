@@ -3,12 +3,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void addFavourite(String favPack) async {
   final prefs = await SharedPreferences.getInstance();
-  List<String>? data = prefs.getStringList(spk_fav) ?? [];
+  List<String> data = prefs.getStringList(spk_fav) ?? [];
   data.add(favPack);
   prefs.setStringList(spk_fav, data);
 }
 
-void removeFavourite() {}
+void removeFavourite(String removeFav) async {
+  final prefs = await SharedPreferences.getInstance();
+  List<String> data = prefs.getStringList(spk_fav) ?? [];
+  data.remove(removeFav);
+  prefs.setStringList(spk_fav, data);
+}
 
 void setFavourites(List<String> favPacks) async {
   final prefs = await SharedPreferences.getInstance();
