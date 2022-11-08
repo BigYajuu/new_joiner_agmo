@@ -8,13 +8,14 @@ class SyncFavPackages extends ChangeNotifier {
   List<String> favPacks = [];
   bool isLoading = false;
 
-  // void _updateLocal() {
-  //   setFavourites(favPacks);
-  // }
+  SyncFavPackages() {
+    refresh();
+  }
 
-  void _retrieveLocal() async {
+  Future refresh() async {
     isLoading = true;
     favPacks = await getFavourites();
     isLoading = false;
+    notifyListeners();
   }
 }

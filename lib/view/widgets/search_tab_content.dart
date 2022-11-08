@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:new_joiner/view/widgets/search_bar.dart';
 import 'package:new_joiner/view/widgets/search_filter.dart';
 import 'package:new_joiner/view/widgets/search_list_item.dart';
+import 'package:new_joiner/viewmodels/local/sync_favourite_package.dart';
 import 'package:new_joiner/viewmodels/query_packages.dart';
 import 'package:provider/provider.dart';
 
@@ -11,10 +12,12 @@ class SearchTabProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => QueryPackages(),
-      child: const _SearchTabContent(),
-    );
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(
+        create: (_) => QueryPackages(),
+      ),
+      ChangeNotifierProvider(create: (_) => SyncFavPackages())
+    ], child: const _SearchTabContent());
   }
 }
 
@@ -51,7 +54,6 @@ class _SearchTabContent extends StatelessWidget {
           child: Builder(
             builder: (context) {
               final data = context.watch<QueryPackages>().pubPackagePool;
-
               return ListView.builder(
                 itemCount: data.length,
                 scrollDirection: Axis.vertical,

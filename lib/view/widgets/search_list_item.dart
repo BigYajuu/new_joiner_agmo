@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:new_joiner/view/styles/colours.dart' as clr;
+import 'package:new_joiner/view/widgets/favourite_button.dart';
 
 class SearchListItem extends StatelessWidget {
   final String title;
@@ -14,6 +13,9 @@ class SearchListItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Row(children: [
+        Builder(builder: (context) {
+          return FavouriteButton(package: title);
+        }),
         Expanded(child: Text(title)),
         IconButton(
           onPressed: onPressed,
