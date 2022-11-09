@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:new_joiner/view/pages/package_detail_page.dart';
 import 'package:new_joiner/view/widgets/search_list_item.dart';
 import 'package:new_joiner/viewmodels/local/sync_favourite_package.dart';
-import 'package:new_joiner/viewmodels/query_package_detailed.dart';
 import 'package:provider/provider.dart';
 
 // DEPRICATED
@@ -36,7 +34,6 @@ class FavouritesTabContent extends StatelessWidget {
                     return SearchListItem(title: data[index]);
                   })
               : const Center(child: Text('No Favourites... :('));
-          // return SizedBox();
         }),
       )
     ]);

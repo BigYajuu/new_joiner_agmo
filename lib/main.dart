@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:new_joiner/view/widgets/custom_btm_nav.dart';
 import 'package:new_joiner/view/widgets/favourites_tab_content.dart';
 import 'package:new_joiner/view/widgets/search_tab_content.dart';
+import 'package:new_joiner/view/widgets/settings_tab_content.dart';
 import 'package:new_joiner/viewmodels/local/sync_favourite_package.dart';
 import 'package:new_joiner/viewmodels/query_package_detailed.dart';
 import 'package:new_joiner/viewmodels/query_packages.dart';
@@ -68,7 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
   // All windows by tabs
   List<Widget> allWindows = [
     const SearchTabContent(),
-    const FavouritesTabContent()
+    const FavouritesTabContent(),
+    const SettingsTabContent()
   ];
 
   @override
