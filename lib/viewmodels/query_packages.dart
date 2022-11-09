@@ -33,6 +33,8 @@ class QueryPackages extends ChangeNotifier {
     // appends parsed items
     _checkAndReset(kw: kw, sortKw: sortKw);
     if (!isLoading) {
+      // When the async is already loading, do not load again
+      // (spam protection)
       isLoading = true;
       final data = await searchPubPackagesBySortByPage(
           kw: currKw, sortKw: currSortKw, nextUrl: nextUrl);

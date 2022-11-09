@@ -79,8 +79,9 @@ class SearchTabContent extends StatelessWidget {
                   }
                   return true;
                 },
+                // When no packages exist in the pool
                 child: data.isEmpty
-                    ? Center(
+                    ? const Center(
                         child: Text("No data :("),
                       )
                     : ListView.builder(
@@ -92,10 +93,13 @@ class SearchTabContent extends StatelessWidget {
                               title: data[index].package,
                             );
                           } else {
+                            // Footer of the list
                             return Center(
                                 child: context.read<QueryPackages>().isLoading
-                                    ? CircularProgressIndicator()
-                                    : Text("End of the Page"));
+                                    // When loading - circular animation
+                                    ? const CircularProgressIndicator()
+                                    // When not loading - reached to the end
+                                    : const Text("End of the Page"));
                           }
                         },
                       ),
