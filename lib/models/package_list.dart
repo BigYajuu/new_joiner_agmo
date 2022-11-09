@@ -5,23 +5,23 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-PubPackageList pubPackageListFromJson(String str) =>
-    PubPackageList.fromJson(json.decode(str));
+PackageList pubPackageListFromJson(String str) =>
+    PackageList.fromJson(json.decode(str));
 
-String pubPackageListToJson(PubPackageList data) => json.encode(data.toJson());
+String pubPackageListToJson(PackageList data) => json.encode(data.toJson());
 
-class PubPackageList {
-  PubPackageList({
+class PackageList {
+  PackageList({
     required this.packages,
     required this.next,
   });
 
-  List<Package> packages;
+  List<PackageListItem> packages;
   String next;
 
-  factory PubPackageList.fromJson(Map<String, dynamic> json) => PubPackageList(
-        packages: List<Package>.from(
-            json["packages"].map((x) => Package.fromJson(x))),
+  factory PackageList.fromJson(Map<String, dynamic> json) => PackageList(
+        packages: List<PackageListItem>.from(
+            json["packages"].map((x) => PackageListItem.fromJson(x))),
         next: json["next"],
       );
 
@@ -31,14 +31,15 @@ class PubPackageList {
       };
 }
 
-class Package {
-  Package({
+class PackageListItem {
+  PackageListItem({
     required this.package,
   });
 
   String package;
 
-  factory Package.fromJson(Map<String, dynamic> json) => Package(
+  factory PackageListItem.fromJson(Map<String, dynamic> json) =>
+      PackageListItem(
         package: json["package"],
       );
 

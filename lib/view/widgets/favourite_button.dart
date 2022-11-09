@@ -11,8 +11,9 @@ class FavouriteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
+        context.watch<SyncFavPackages>().favPacks;
         final isFavourited =
-            context.watch<SyncFavPackages>().favPacks.contains(package);
+            context.read<SyncFavPackages>().favPacks.contains(package);
         return IconButton(
           icon: isFavourited
               ? const Icon(
@@ -29,8 +30,7 @@ class FavouriteButton extends StatelessWidget {
               addFavourite(package);
             }
             // context.read<SyncFavPackages>().refresh(); //
-            await Provider.of<SyncFavPackages>(context, listen: false)
-                .refresh();
+            context.read<SyncFavPackages>().refresh();
           },
         );
       },

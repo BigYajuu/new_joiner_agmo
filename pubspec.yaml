@@ -36,6 +36,8 @@ dependencies:
   provider: ^6.0.4
   http: ^0.13.5
   dio: ^4.0.6
+  jiffy: ^5.0.0
+  very_good_analysis: ^3.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -51,6 +53,21 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+include: package:very_good_analysis/analysis_options.2.4.0.yaml
+analyzer:
+  exclude:
+    - '**/*.freezed.dart'
+    - '**/*.g.dart'
+  errors:
+    missing_enum_constant_in_switch: error
+linter:
+  rules:
+    public_member_api_docs: false
+    flutter_style_todos: false
+    no_default_cases: false
+    avoid_catching_errors: false
+    use_setters_to_change_properties: false
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -30,3 +30,25 @@ Future<Map<String, dynamic>?> searchPubPackagesBySortByPage(
     return null;
   }
 }
+
+Future<Map<String, dynamic>?> getPackageDetails(
+    {required String package}) async {
+  String url = "${api_root}packages/$package";
+  try {
+    var response = await Dio().get<Map<String, dynamic>>(url);
+    return response.data;
+  } catch (e) {
+    return null;
+  }
+}
+
+Future<Map<String, dynamic>?> getPackagePublisherId(
+    {required String package}) async {
+  String url = "${api_root}packages/$package/publisher";
+  try {
+    var response = await Dio().get<Map<String, dynamic>>(url);
+    return response.data;
+  } catch (e) {
+    return null;
+  }
+}

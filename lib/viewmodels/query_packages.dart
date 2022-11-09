@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:new_joiner/api/routers/top.dart';
-import 'package:new_joiner/models/pub_package_list.dart';
+import 'package:new_joiner/models/package_list.dart';
 
 class QueryPackages extends ChangeNotifier {
   // handling the query pub packages by keeping them updated
@@ -10,7 +10,7 @@ class QueryPackages extends ChangeNotifier {
   String currKw = "";
   SortKw currSortKw = SortKw.top;
   bool isLoading = false;
-  List<Package> pubPackagePool = [];
+  List<PackageListItem> packagePool = [];
 
   void _checkAndReset({String? kw, SortKw? sortKw}) {
     // if any changes in any querying keys, reset all.
@@ -19,13 +19,13 @@ class QueryPackages extends ChangeNotifier {
       currPage = 1;
       nextUrl = null;
       currKw = kw;
-      pubPackagePool = [];
+      packagePool = [];
     }
     if (sortKw != null && sortKw != currSortKw) {
       currPage = 1;
       nextUrl = null;
       currSortKw = sortKw;
-      pubPackagePool = [];
+      packagePool = [];
     }
   }
 
@@ -38,9 +38,8 @@ class QueryPackages extends ChangeNotifier {
     isLoading = false;
     if (data == null) {
     } else {
-      PubPackageList pplWhole = PubPackageList.fromJson(data);
-      pubPackagePool.addAll(pplWhole.packages);
-      print(pubPackagePool);
+      PackageList pplWhole = PackageList.fromJson(data);
+      packagePool.addAll(pplWhole.packages);
       nextUrl = pplWhole.next;
     }
     notifyListeners();

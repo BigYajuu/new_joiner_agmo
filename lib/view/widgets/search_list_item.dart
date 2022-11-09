@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:new_joiner/view/styles/colours.dart' as clr;
 import 'package:new_joiner/view/widgets/favourite_button.dart';
 
+import '../pages/package_detail_page.dart';
+
 class SearchListItem extends StatelessWidget {
   final String title;
-  final void Function() onPressed;
-  const SearchListItem(
-      {super.key, required this.title, required this.onPressed});
+  const SearchListItem({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,10 @@ class SearchListItem extends StatelessWidget {
         }),
         Expanded(child: Text(title)),
         IconButton(
-          onPressed: onPressed,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => PackageDetailProvider(package: title)));
+          },
           icon: const Icon(Icons.arrow_forward_ios_rounded),
           iconSize: 12,
           color: clr.TextColorDefocused,

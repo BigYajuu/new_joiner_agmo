@@ -6,6 +6,7 @@ import 'package:new_joiner/viewmodels/local/sync_favourite_package.dart';
 import 'package:new_joiner/viewmodels/query_packages.dart';
 import 'package:provider/provider.dart';
 
+//DEPRICATED
 class SearchTabProvider extends StatelessWidget {
   // Acts as a provider that wraps the actual widget
   const SearchTabProvider({super.key});
@@ -17,14 +18,14 @@ class SearchTabProvider extends StatelessWidget {
         create: (_) => QueryPackages(),
       ),
       ChangeNotifierProvider(create: (_) => SyncFavPackages())
-    ], child: const _SearchTabContent());
+    ], child: const SearchTabContent());
   }
 }
 
-class _SearchTabContent extends StatelessWidget {
+class SearchTabContent extends StatelessWidget {
   final void Function(String)? onChanged;
 
-  const _SearchTabContent({this.onChanged});
+  const SearchTabContent({super.key, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +54,13 @@ class _SearchTabContent extends StatelessWidget {
         Expanded(
           child: Builder(
             builder: (context) {
-              final data = context.watch<QueryPackages>().pubPackagePool;
+              final data = context.watch<QueryPackages>().packagePool;
               return ListView.builder(
                 itemCount: data.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext context, int index) {
                   return SearchListItem(
                     title: data[index].package,
-                    onPressed: () {
-                      // TO PACKAGE PAGE
-                    },
                   );
                 },
               );

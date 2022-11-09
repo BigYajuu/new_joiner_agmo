@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:new_joiner/view/widgets/custom_btm_nav.dart';
 import 'package:new_joiner/view/widgets/favourites_tab_content.dart';
 import 'package:new_joiner/view/widgets/search_tab_content.dart';
+import 'package:new_joiner/viewmodels/local/sync_favourite_package.dart';
+import 'package:new_joiner/viewmodels/query_package_detailed.dart';
+import 'package:new_joiner/viewmodels/query_packages.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +21,35 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyAppProvider(title: 'Flutter Demo Home Page'),
     );
+  }
+}
+
+class MyAppProvider extends StatelessWidget {
+  const MyAppProvider({super.key, required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => QueryPackages(),
+          ),
+          ChangeNotifierProvider(create: (_) => SyncFavPackages())
+        ],
+        builder: ((context, child) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          );
+          ;
+        }));
   }
 }
 
@@ -36,8 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // All windows by tabs
   List<Widget> allWindows = [
-    const SearchTabProvider(),
-    const FavouritesTabProvider(),
+    const SearchTabContent(),
+    const FavouritesTabContent()
   ];
 
   @override

@@ -5,13 +5,13 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-PubPackage pubPackageFromJson(String str) =>
-    PubPackage.fromJson(json.decode(str));
+PackageDetailed packageFromJson(String str) =>
+    PackageDetailed.fromJson(json.decode(str));
 
-String pubPackageToJson(PubPackage data) => json.encode(data.toJson());
+String packageToJson(PackageDetailed data) => json.encode(data.toJson());
 
-class PubPackage {
-  PubPackage({
+class PackageDetailed {
+  PackageDetailed({
     required this.name,
     required this.latest,
   });
@@ -19,7 +19,8 @@ class PubPackage {
   String name;
   Latest latest;
 
-  factory PubPackage.fromJson(Map<String, dynamic> json) => PubPackage(
+  factory PackageDetailed.fromJson(Map<String, dynamic> json) =>
+      PackageDetailed(
         name: json["name"],
         latest: Latest.fromJson(json["latest"]),
       );
