@@ -32,15 +32,17 @@ class QueryPackages extends ChangeNotifier {
   Future<void> query({String? kw, SortKw? sortKw}) async {
     // appends parsed items
     _checkAndReset(kw: kw, sortKw: sortKw);
-    isLoading = true;
-    final data = await searchPubPackagesBySortByPage(
-        kw: currKw, sortKw: currSortKw, nextUrl: nextUrl);
-    isLoading = false;
-    if (data == null) {
-    } else {
-      PackageList pplWhole = PackageList.fromJson(data);
-      packagePool.addAll(pplWhole.packages);
-      nextUrl = pplWhole.next;
+    if (!isLoading) {
+      isLoading = true;
+      final data = await searchPubPackagesBySortByPage(
+          kw: currKw, sortKw: currSortKw, nextUrl: nextUrl);
+      if (data == null) {
+      } else {
+        PackageList pplWhole = PackageList.fromJson(data);
+        packagePool.addAll(pplWhole.packages);
+        nextUrl = pplWhole.next;
+      }
+      isLoading = false;
     }
     notifyListeners();
   }

@@ -18,7 +18,7 @@ class SearchTabProvider extends StatelessWidget {
         create: (_) => QueryPackages(),
       ),
       ChangeNotifierProvider(create: (_) => SyncFavPackages())
-    ], child: const SearchTabContent());
+    ], child: SearchTabContent());
   }
 }
 
@@ -26,6 +26,18 @@ class SearchTabContent extends StatelessWidget {
   final void Function(String)? onChanged;
 
   const SearchTabContent({super.key, this.onChanged});
+
+  // @override
+  // void initState() {
+  //   _sc.addListener(() {
+  //     if (_sc.position.atEdge) {
+  //       bool isTop = _sc.position.pixels == 0;
+  //       if (!isTop) {
+  //         // Meaning reached bottom
+  //       }
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,14 +67,38 @@ class SearchTabContent extends StatelessWidget {
           child: Builder(
             builder: (context) {
               final data = context.watch<QueryPackages>().packagePool;
-              return ListView.builder(
-                itemCount: data.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (BuildContext context, int index) {
-                  return SearchListItem(
-                    title: data[index].package,
-                  );
+              return NotificationListener<ScrollNotification>(
+                onNotification: (scrollEnd) {
+                  final metrics = scrollEnd.metrics;
+                  if (metrics.atEdge) {
+                    bool isTop = metrics.pixels == 0;
+                    if (!isTop) {
+                      // Meaning reaching bottom
+                      context.read<QueryPackages>().query();
+                    }
+                  }
+                  return true;
                 },
+                child: data.isEmpty
+                    ? Center(
+                        child: Text("No data :("),
+                      )
+                    : ListView.builder(
+                        itemCount: data.length + 1,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (BuildContext context, int index) {
+                          if (index < data.length) {
+                            return SearchListItem(
+                              title: data[index].package,
+                            );
+                          } else {
+                            return Center(
+                                child: context.read<QueryPackages>().isLoading
+                                    ? CircularProgressIndicator()
+                                    : Text("End of the Page"));
+                          }
+                        },
+                      ),
               );
             },
           ),
